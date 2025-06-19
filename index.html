@@ -1327,11 +1327,10 @@
         let pricingHtml = '';
         if (prop.pricing) {
             pricingHtml = `<div style='margin-bottom:1.2rem; text-align:left;'><strong>Pricing:</strong><table style='width:100%; border-collapse:collapse; margin-top:0.5rem; font-size:0.98rem;'>
-                <tr style='background:#f8f9fa;'><th style='padding:6px 8px; text-align:left;'>Size</th><th style='padding:6px 8px; text-align:left;'>Price</th><th style='padding:6px 8px; text-align:left;'>Pre-Launch Price</th><th style='padding:6px 8px; text-align:left;'>Initial Deposit</th><th style='padding:6px 8px; text-align:left;'>All Inclusive</th></tr>
+                <tr style='background:#f8f9fa;'><th style='padding:6px 8px; text-align:left;'>Size</th><th style='padding:6px 8px; text-align:left;'>Price</th><th style='padding:6px 8px; text-align:left;'>Initial Deposit</th><th style='padding:6px 8px; text-align:left;'>All Inclusive</th></tr>
                 ${Object.entries(prop.pricing).map(([size, p]) => `
                     <tr>
                         <td style='padding:6px 8px;'>${size}</td>
-                        <td style='padding:6px 8px; text-decoration:line-through; color:#b5940f;'>${p.old_price || '-'}</td>
                         <td style='padding:6px 8px; color:#0d642f; font-weight:600;'>${p.new_price || '-'}</td>
                         <td style='padding:6px 8px;'>${p.initial_deposit || '-'}</td>
                         <td style='padding:6px 8px;'>${p.all_inclusive ? '✅' : ''}</td>
