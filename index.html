@@ -1019,6 +1019,47 @@
       </div>
     </section>
 
+    <style>
+    /* Mobile responsive styles for core values */
+    @media (max-width: 768px) {
+        #core-values .container > div {
+            gap: 1rem !important;
+        }
+        #core-values .container > div > div {
+            flex: 1 1 calc(50% - 0.5rem) !important;
+            min-width: 140px !important;
+            max-width: calc(50% - 0.5rem) !important;
+            padding: 1.2rem 1rem !important;
+        }
+        #core-values .container > div > div > div:first-child {
+            font-size: 1.8rem !important;
+            margin-bottom: 0.7rem !important;
+        }
+        #core-values .container > div > div > div:nth-child(2) {
+            font-size: 1rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        #core-values .container > div > div > div:last-child {
+            font-size: 0.9rem !important;
+            line-height: 1.4 !important;
+        }
+    }
+    @media (max-width: 480px) {
+        #core-values .container > div > div {
+            padding: 1rem 0.8rem !important;
+        }
+        #core-values .container > div > div > div:first-child {
+            font-size: 1.6rem !important;
+        }
+        #core-values .container > div > div > div:nth-child(2) {
+            font-size: 0.95rem !important;
+        }
+        #core-values .container > div > div > div:last-child {
+            font-size: 0.85rem !important;
+        }
+    }
+    </style>
+
     <!-- SwiperJS CSS & JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- SweetAlert2 CDN -->
@@ -1095,8 +1136,8 @@
                 },
                 titleStatus: 'C of O Title in View',
                 paymentPlan: {
-                    '0-6 months': 'Interest Free',
-                    '9 months': '10% Interest'
+                    '0-3 months': 'Interest Free',
+                    '6 months': '10% Interest'
                 },
                 otherInfo: {
                     no_hidden_charges: true,
@@ -1337,13 +1378,12 @@
         let pricingHtml = '';
         if (prop.pricing) {
             pricingHtml = `<div style='margin-bottom:1.2rem; text-align:left;'><strong>Pricing:</strong><table style='width:100%; border-collapse:collapse; margin-top:0.5rem; font-size:0.98rem;'>
-                <tr style='background:#f8f9fa;'><th style='padding:6px 8px; text-align:left;'>Size</th><th style='padding:6px 8px; text-align:left;'>Price</th><th style='padding:6px 8px; text-align:left;'>Initial Deposit</th><th style='padding:6px 8px; text-align:left;'>All Inclusive</th></tr>
+                <tr style='background:#f8f9fa;'><th style='padding:6px 8px; text-align:left;'>Size</th><th style='padding:6px 8px; text-align:left;'>Price</th><th style='padding:6px 8px; text-align:left;'>Initial Deposit</th></tr>
                 ${Object.entries(prop.pricing).map(([size, p]) => `
                     <tr>
                         <td style='padding:6px 8px;'>${size}</td>
                         <td style='padding:6px 8px; color:#0d642f; font-weight:600;'>${p.new_price || '-'}</td>
                         <td style='padding:6px 8px;'>${p.initial_deposit || '-'}</td>
-                        <td style='padding:6px 8px;'>${p.all_inclusive ? '✅' : ''}</td>
                     </tr>
                 `).join('')}
             </table></div>`;
