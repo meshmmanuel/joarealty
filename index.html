@@ -943,7 +943,7 @@
             <ul class="nav-links" style="display: flex; list-style: none; gap: 2.2rem; margin: 0; align-items: center;">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#properties">Prime City</a></li>
+                <li><a href="javascript:void(0);" onclick="showFeaturedPropertyModal(); return false;">Prime City</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1081,6 +1081,7 @@
                 price: '₦1,800,000',
                 size: '300sqm',
                 title: 'Registered Survey Plan and C of O in View',
+                featured: true,
                 features: ['Dry Land', 'Fenced Estate', 'Good Road Network', '24/7 Security', 'Electricity Available'],
                 download: 'assets/prime-city/primecity-ajebo-brochure.pdf',
                 image: 'assets/prime-city/launch-group-img.jpg',
@@ -1146,21 +1147,6 @@
                 developer: 'JOA Prime Realty Ltd'
             },
         ],
-        // Abuja: [
-        //     {
-        //         name: 'PrimeEstate Gwarinpa',
-        //         price: '₦12,000,000',
-        //         size: '800sqm',
-        //         title: 'R of O (Ready for Conversion)',
-        //         features: ['Serviced Plot', 'Estate Development', 'Water & Electricity', 'Paved Roads'],
-        //         download: 'assets/primeestate-gwarinpa-brochure.pdf',
-        //         images: [
-        //             'assets/prime-city/launch-group-img.jpg'
-        //         ],
-        //         location: 'Gwarinpa Extension, Abuja',
-        //         comingSoon: true
-        //     }
-        // ],
         Ogun: [
             {
                 name: 'PrimeVilla, Owode',
@@ -1173,7 +1159,8 @@
                     'assets/prime-city/launch-group-img.jpg'
                 ],
                 location: 'Owode, Ogun State',
-                comingSoon: true
+                comingSoon: true,
+                featured: false,
             },
             {
                 name: 'PrimeHaven, Ajebo',
@@ -1186,7 +1173,8 @@
                     'assets/prime-city/launch-group-img.jpg'
                 ],
                 location: 'Ajebo, Ogun State',
-                comingSoon: true
+                comingSoon: true,
+                featured: false,
             }
         ]
     };
@@ -1470,7 +1458,70 @@
         });
     }
 
+    // Function to get featured property name
+    function getFeaturedPropertyName() {
+        for (const location in propertyData) {
+            const properties = propertyData[location];
+            for (let idx = 0; idx < properties.length; idx++) {
+                if (properties[idx].featured) {
+                    return properties[idx].name;
+                }
+            }
+        }
+        return 'Prime City'; // Fallback
+    }
+
+    // Function to find and show featured property modal
+    function showFeaturedPropertyModal() {
+        // Close mobile menu if open
+        if (window.innerWidth <= 700) {
+            const mobileNavDropdown = document.getElementById('mobileNavDropdown');
+            if (mobileNavDropdown && mobileNavDropdown.style.display !== 'none') {
+                mobileNavDropdown.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Find the featured property
+        for (const location in propertyData) {
+            const properties = propertyData[location];
+            for (let idx = 0; idx < properties.length; idx++) {
+                if (properties[idx].featured) {
+                    showPropertyModal(location, idx);
+                    return;
+                }
+            }
+        }
+        // If no featured property found, scroll to properties section
+        document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update navigation with featured property name
+    function updateNavigationWithFeaturedProperty() {
+        const featuredName = getFeaturedPropertyName();
+        // Update desktop navigation - find the link that has the onclick handler
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('onclick') && link.getAttribute('onclick').includes('showFeaturedPropertyModal')) {
+                link.textContent = featuredName;
+            }
+        });
+        // Update mobile navigation
+        const mobileNavLinks = document.querySelectorAll('#mobileNavDropdown nav a');
+        mobileNavLinks.forEach(link => {
+            if (link.getAttribute('onclick') && link.getAttribute('onclick').includes('showFeaturedPropertyModal')) {
+                link.textContent = featuredName;
+            }
+        });
+    }
+
     renderLocations();
+    // Update navigation with featured property name
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateNavigationWithFeaturedProperty);
+    } else {
+        updateNavigationWithFeaturedProperty();
+    }
     </script>
 
     <!-- Services Section -->
@@ -1666,7 +1717,7 @@
         <nav style="display:flex; flex-direction:column; align-items:center; gap:2.2rem; width:100vw;">
             <a href="#hero" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">Home</a>
             <a href="#about" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">About</a>
-            <a href="#properties" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">Prime City</a>
+            <a href="javascript:void(0);" onclick="showFeaturedPropertyModal(); return false;" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">Prime City</a>
             <a href="#services" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">Services</a>
             <a href="#contact" class="mobile-nav-link" style="color:#fff; font-size:1.5rem; font-weight:600; text-decoration:none;">Contact</a>
             <a href="#properties" class="mobile-nav-cta" style="margin-top:1.5rem; background:#b5940f; color:#fff; padding:1rem 2.5rem; border-radius:30px; font-size:1.2rem; font-weight:700; text-decoration:none; box-shadow:0 4px 16px rgba(0,0,0,0.15);">View Properties</a>
@@ -1701,6 +1752,10 @@
             });
             $('body').css('overflow', '');
         });
+        // Update navigation with featured property name
+        if (typeof updateNavigationWithFeaturedProperty === 'function') {
+            updateNavigationWithFeaturedProperty();
+        }
     });
     </script>
     <style>
