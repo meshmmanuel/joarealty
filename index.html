@@ -1532,9 +1532,9 @@
     <section id="contact" class="contact" style="padding: 80px 0; background: #f8f9fa;">
         <div class="container" style="max-width: 1100px; margin: 0 auto;">
             <h2 class="section-title" style="text-align: center; color: #0d642f; font-size: 2.5rem; margin-bottom: 3rem;">Get In Touch</h2>
-            <div class="contact-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
-                <div class="contact-info" style="color: #333;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #0d642f;">Contact Information</h3>
+            <div class="contact-content" style="display: flex; justify-content: center;">
+                <div class="contact-info" style="color: #333; max-width: 600px; width: 100%;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #0d642f; text-align: center;">Contact Information</h3>
                     <div class="contact-item" style="display: flex; align-items: center; margin-bottom: 1.5rem; padding: 1rem; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
                         <div class="contact-item-icon" style="font-size: 1.5rem; margin-right: 1rem; color: #b5940f;">
                             <i class="fas fa-phone"></i>
@@ -1572,63 +1572,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact-form" style="background: #fff; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 16px rgba(0,0,0,0.08);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #0d642f;">Send us a Message</h3>
-                    <form id="contactForm" netlify onsubmit="handleContactSubmit(event); return false;">
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #0d642f;">Name</label>
-                            <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #333; font-size: 1rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#b5940f';" onblur="this.style.borderColor='#e0e0e0';">
-                        </div>
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #0d642f;">Email</label>
-                            <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #333; font-size: 1rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#b5940f';" onblur="this.style.borderColor='#e0e0e0';">
-                        </div>
-                        <div class="form-group" style="margin-bottom: 1rem;">
-                            <label for="phone" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #0d642f;">Phone</label>
-                            <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #333; font-size: 1rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#b5940f';" onblur="this.style.borderColor='#e0e0e0';">
-                        </div>
-                        <div class="form-group" style="margin-bottom: 1.5rem;">
-                            <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #0d642f;">Message</label>
-                            <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #333; font-size: 1rem; resize: vertical; transition: border-color 0.3s; font-family: 'Montserrat', Arial, sans-serif;" onfocus="this.style.borderColor='#b5940f';" onblur="this.style.borderColor='#e0e0e0';"></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn" style="background: linear-gradient(45deg, #0d642f, #b5940f); color: #fff; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 600; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; font-size: 1rem; width: 100%;">Send Message</button>
-                    </form>
-                </div>
             </div>
         </div>
     </section>
-
-    <script>
-        function handleContactSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const phone = formData.get('phone');
-            const message = formData.get('message');
-            
-            // Create WhatsApp message
-            const whatsappMessage = `Hello! I'm ${name}.\n\nEmail: ${email}\nPhone: ${phone}\n\nMessage: ${message}`;
-            const whatsappUrl = `https://wa.me/2347063566590?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-            
-            // Show success message
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Message Sent!',
-                    text: 'We\'ll get back to you shortly via WhatsApp.',
-                    icon: 'success',
-                    confirmButtonColor: '#0d642f'
-                });
-            }
-            
-            // Reset form
-            form.reset();
-        }
-    </script>
 
     <!-- Floating WhatsApp Button -->
     <div class="whatsapp-float">
